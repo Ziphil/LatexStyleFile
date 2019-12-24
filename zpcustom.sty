@@ -1,0 +1,116 @@
+% ＊ オプションの用意
+\newif\ifzpenglish
+\zpenglishfalse
+\DeclareOption{english}{\zpenglishtrue}
+\ProcessOptions*
+
+% ＊ パッケージの読み込み
+% ・ relsize ･･･ 相対フォントサイズ指定するコマンド (\smaller, \larger)
+% ・ delarray ･･･ 繁分数の括弧
+% ・ tikz-cd ･･･ 可換図式
+% ・ BOONDOX-cal ･･･ カリグラフィーフォントの変更
+\usepackage{relsize}
+\usepackage{delarray}
+\usepackage{tikz-cd}
+\usepackage{BOONDOX-cal}
+
+% ＊ 数式用括弧
+% 上下の高さに合わせた括弧を表示させられるようにします。
+% 集合の内包表記のような 3 つから成る括弧は「\la \llm x \rlm y \ra」のようにしてください。
+\newcommand{\lp}{\begin{array}[t]({@{}c@{}})\displaystyle}
+\newcommand{\rp}{\end{array}}
+\newcommand{\lB}{\begin{array}[t]\{{@{}c@{}}\}\displaystyle}
+\newcommand{\rB}{\end{array}}
+\newcommand{\lb}{\begin{array}[t][{@{}c@{}}]\displaystyle}
+\newcommand{\rb}{\end{array}}
+\newcommand{\lv}{\begin{array}[t]\lvert{@{}c@{}}\rvert\displaystyle}
+\newcommand{\rv}{\end{array}}
+\newcommand{\lV}{\begin{array}[t]\lVert{@{}c@{}}\rVert\displaystyle}
+\newcommand{\rV}{\end{array}}
+\newcommand{\lf}{\begin{array}[t]\lfloor{@{}c@{}}\rfloor\displaystyle}
+\newcommand{\rf}{\end{array}}
+\newcommand{\lc}{\begin{array}[t]\lceil{@{}c@{}}\rceil\displaystyle}
+\newcommand{\rc}{\end{array}}
+\newcommand{\la}{\begin{array}[t]\langle{@{}c@{}}\rangle\displaystyle}
+\newcommand{\ra}{\end{array}}
+\newcommand{\lpb}{\begin{array}[t]({@{}c@{}}]\displaystyle}
+\newcommand{\rpb}{\end{array}}
+\newcommand{\lbp}{\begin{array}[t][{@{}c@{}})\displaystyle}
+\newcommand{\rbp}{\end{array}}
+\newcommand{\llm}{\!\begin{array}[t].{@{}c@{\:}}\rvert\displaystyle}
+\newcommand{\rlm}{\end{array}\:}
+\newcommand{\lrm}{\:\begin{array}[t]\lvert{@{\:}c@{}}.\displaystyle}
+\newcommand{\rrm}{\end{array}\!}
+\newcommand{\lpn}{\begin{array}[t]({@{}c@{}}.\displaystyle}
+\newcommand{\rpn}{\end{array}}
+\newcommand{\lnp}{\begin{array}[t].{@{}c@{}})\displaystyle}
+\newcommand{\rnp}{\end{array}}
+
+% ＊ 前後のスペースが多めの論理記号
+\newcommand{\fland}{\,\land\,}
+\newcommand{\flor}{\,\lor\,}
+\newcommand{\wland}{\mathbin{\text{\textsc{and}}}}
+\newcommand{\wlor}{\mathbin{\text{\textsc{or}}}}
+\newcommand{\fwland}{\,\mathbin{\text{\textsc{and}}}\,}
+\newcommand{\fwlor}{\,\mathbin{\text{\textsc{or}}}\,}
+\newcommand{\ffwland}{\:\,\mathbin{\text{\textsc{and}}}\:\,}
+\newcommand{\ffwlor}{\:\,\mathbin{\text{\textsc{or}}}\:\,}
+\newcommand{\fto}{\,\to\,}
+\newcommand{\frightarrow}{\,\rightarrow\,}
+\newcommand{\fleftarrow}{\,\leftarrow\,}
+\newcommand{\fleftrightarrow}{\,\leftrightarrow\,}
+\newcommand{\fRightarrow}{\,\Rightarrow\,}
+\newcommand{\fLeftarrow}{\,\Leftarrow\,}
+\newcommand{\fLeftrightarrow}{\,\Leftrightarrow\,}
+\newcommand{\fLongrightarrow}{\,\Longrightarrow\,}
+\newcommand{\fLongleftarrow}{\,\Longleftarrow\,}
+\newcommand{\fLongleftrightarrow}{\,\Longleftrightarrow\,}
+\newcommand{\fiff}{\,\Longleftrightarrow\,}
+\newcommand{\fcoloniff}{\,\mathrel{:\Longleftrightarrow}\,}
+
+% ＊ カリグラフィー体
+\newcommand{\mathscr}[1]{\mathcal{#1}}
+
+% ＊ 関数名
+\newcommand{\op}[1]{\operatorname{#1}}
+
+% ＊ 著者名欄の学籍番号
+\newcommand{\stnumber}[1]{{\smaller[1]#1}}
+
+% ＊ 強調した文字
+\newcommand{\textem}[1]{\textsf{\textgt{#1}}}
+
+% ＊ 外国語表記
+\newcommand{\fl}[1]{{\smaller[1](#1)}}
+
+% ＊ 段落名
+\newcommand{\pname}[1]{\noindent\textsf{\textgt{#1}}\hspace{1zw}}
+
+% ＊ 定理環境
+\newtheorem{definition}{\ifzpenglish Definition\else 定義\fi}[section]
+\newtheorem{theorem}[definition]{\ifzpenglish Theorem\else 定理\fi}
+\newtheorem{proposition}[definition]{\ifzpenglish Proposition\else 命題\fi}
+\renewcommand{\proofname}{\ifzpenglish Proof\else 証明\fi}
+
+% ＊ TikZ-cd 用環境
+\newenvironment{cd}[1]{\begin{tikzcd}[ampersand replacement=\&, #1]}{\end{tikzcd}}
+\tikzset{commutative diagrams/arrow style=math font}
+
+% ＊ スペース関連
+% ・ \ssp ･･･ 付加条件の括弧の前のスペース (5/18 em)
+% ・ \qsp ･･･ 量化子の直後のスペース (8/18 em)
+\newcommand{\ssp}{\;}
+\newcommand{\qsp}{\:\;} 
+
+% ＊ 参考文献用
+\newcommand{\atit}[1]{\textsl{#1}.}
+\newcommand{\jtit}[1]{#1.}
+
+% ＊ ?
+% \arraystretch の値をもともとの行間に戻します。
+\newcommand{\defaultas}{\renewcommand{\arraystretch}{1}}
+
+% ＊ その他記号
+\newcommand{\cl}{\colon}
+\newcommand{\scl}{\semicolon}
+\newcommand{\ocdots}{\mathord{\cdots}}

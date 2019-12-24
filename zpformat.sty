@@ -1,0 +1,207 @@
+% ＊ オプションの用意
+\newif\ifzpenglish
+\zpenglishfalse
+\DeclareOption{english}{\zpenglishtrue}
+\ProcessOptions*
+
+% ＊ パッケージの読み込み
+\usepackage{amsthm}
+\usepackage{fancyhdr}
+
+% ＊ フォントの設定
+% Times フォントを使うようにします。
+\usepackage[helvratio=.95,defaultsups]{newtxtext}
+\usepackage{newtxmath}
+
+% ＊ タイトルの体裁の設定
+\if@titlepage
+  \renewcommand{\maketitle}{%
+    \begin{titlepage}%
+      \let\footnotesize\small
+      \let\footnoterule\relax
+      \let\footnote\thanks
+      \null\vfil
+      \if@slide
+        {\footnotesize \@date}%
+        \begin{center}
+          \mbox{} \\[1zw]
+          \large
+          {\maybeblue\hrule height0\jsc@mpt depth2\jsc@mpt\relax}\par
+          \jsc@smallskip
+          \@title
+          \jsc@smallskip
+          {\maybeblue\hrule height0\jsc@mpt depth2\jsc@mpt\relax}\par
+          \vfill
+          {\small \@author}%
+        \end{center}
+      \else
+      \vskip 60\jsc@mpt
+      \begin{center}%
+        {\Huge\sffamily\gtfamily \@title \par}%
+        \vskip 3em%
+        {\Large
+          \lineskip .75em
+          \begin{tabular}[t]{c}%
+            \@author
+          \end{tabular}\par}%
+        \vskip 1.5em
+        {\large \@date \par}%
+      \end{center}%
+      \fi
+      \par
+      \@thanks\vfil\null
+    \end{titlepage}%
+    \setcounter{footnote}{0}%
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\title\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\and\relax
+  }%
+\else
+  \renewcommand{\maketitle}{\par
+    \begingroup
+      \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+      \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+      \long\def\@makefntext##1{\advance\leftskip 3zw
+        \parindent 1zw\noindent
+        \llap{\@textsuperscript{\normalfont\@thefnmark}\hskip0.3zw}##1}%
+      \if@twocolumn
+        \ifnum \col@number=\@ne
+          \@maketitle
+        \else
+          \twocolumn[\@maketitle]%
+        \fi
+      \else
+        \newpage
+        \global\@topnum\z@
+        \@maketitle
+      \fi
+      \plainifnotempty
+      \@thanks
+    \endgroup
+    \setcounter{footnote}{0}%
+    \global\let\thanks\relax
+    \global\let\maketitle\relax
+    \global\let\@thanks\@empty
+    \global\let\@author\@empty
+    \global\let\@date\@empty
+    \global\let\@title\@empty
+    \global\let\title\relax
+    \global\let\author\relax
+    \global\let\date\relax
+    \global\let\and\relax
+  }
+  \def\@maketitle{%
+    \newpage\null
+    \vskip 2em
+    \begin{center}%
+      \let\footnote\thanks
+      {\huge\sffamily\gtfamily \@title \par}%
+      \vskip 1.5em
+      {\large
+        \lineskip .5em
+        \begin{tabular}[t]{c}%
+          \@author
+        \end{tabular}\par}%
+      \vskip 1em
+      {\normalsize \@date}%
+    \end{center}%
+    \par\vskip 1.5em
+    \ifvoid\@abstractbox\else\centerline{\box\@abstractbox}\vskip1.5em\fi
+  }
+\fi
+
+% ＊ 見出しの体裁の設定
+% 見出し番号の直後にドットを付けます。
+% さらに、目次の見出し番号の直後にもドットを付けます。
+\renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
+\def\numberline#1{\hb@xt@\@lnumwidth{#1.\hfil}\hspace{0pt}}
+
+% ＊ 証明環境の体裁の設定
+\newtheoremstyle{zptheorem}%
+{\topsep}{\topsep}{\normalfont}{}{\sffamily\gtfamily}{}{1zw}%
+{\thmname{#1} \thmnumber{#2}.\thmnote{［#3］\hspace{-0.5zw}}}
+\theoremstyle{zptheorem}
+\makeatletter
+\renewenvironment{proof}[1][\proofname]{\par
+  \normalfont \topsep6\p@\@plus6\p@\relax
+  \trivlist
+  \setlength{\labelsep}{1zw}
+  \item[%
+    \hskip\labelsep%
+    {\sffamily\gtfamily#1\@addpunct{.}}%
+  ]\ignorespaces%
+}{
+  \endtrivlist
+}
+\makeatother
+
+% ＊ ヘッダーとフッターの設定
+\renewcommand{\headrulewidth}{0pt}
+\pagestyle{fancy}
+\lhead{}\rhead{}\chead{}
+\lfoot{}\rfoot{}
+\cfoot{　\\[5mm] ---\ \ \thepage{}\ \ ---}
+
+% ＊ 数式番号の体裁の設定
+% 数式番号に節番号を付記し、囲む記号として角括弧を用いるようにします。
+\numberwithin{equation}{section}
+\makeatletter%
+\renewcommand{\tagform@}[1]{\maketag@@@{\smaller[1]{}[\ignorespaces#1\unskip\@@italiccorr]}}%
+\makeatother%
+\newcommand{\nosectionnumber}{%
+  \def\theequation{\arabic{equation}}%
+}
+
+% ＊ 箇条書きの体裁の設定
+\makeatletter
+\def\@listi{%
+  \leftmargin\leftmargini%
+  \parsep 0\z@%
+  \itemsep 0\z@ \relax%
+}
+\let\@listI\@listi
+\makeatother
+\renewcommand{\theenumi}{\arabic{enumi}}
+\renewcommand{\labelenumi}{\smaller[1][\theenumi]}
+
+% ＊ 参考文献の体裁の設定
+\makeatletter
+\renewcommand{\@biblabel}[1]{{\smaller[1]{}[#1]}}
+\renewenvironment{thebibliography}[1]{%
+  \global\let\presectionname\relax
+  \global\let\postsectionname\relax
+  \section*{\refname}\@mkboth{\refname}{\refname}%
+  \list{\@biblabel{\@arabic\c@enumiv}}{%
+    \settowidth\labelwidth{\@biblabel{#1}}%
+    \setlength{\labelsep}{1em}
+    \leftmargin\labelwidth
+    \advance\leftmargin\labelsep
+    \@openbib@code
+    \usecounter{enumiv}%
+    \let\p@enumiv\@empty
+    \renewcommand\theenumiv{\@arabic\c@enumiv}%
+  }%
+  \sloppy%
+  \clubpenalty4000%
+  \@clubpenalty\clubpenalty%
+  \widowpenalty4000%
+  \sfcode`\.\@m%
+}{
+  \def\@noitemerr{\@latex@warning{Empty `thebibliography' environment}}%
+  \endlist
+}
+\def\@cite#1#2{%
+  \textsuperscript{[{#1\if@tempswa , #2\fi}] }%
+}
+\makeatother
+
+% ＊ 行間の設定
+\renewcommand{\baselinestretch}{1.1}
+\renewcommand{\arraystretch}{1.2}
