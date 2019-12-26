@@ -92,8 +92,10 @@
 \newtheorem{definition}{\ifzpenglish Definition\else 定義\fi}[section]
 \newtheorem{theorem}[definition]{\ifzpenglish Theorem\else 定理\fi}
 \newtheorem{proposition}[definition]{\ifzpenglish Proposition\else 命題\fi}
+\newtheorem{lemma}[definition]{\ifzpenglish Lemma\else 補題\fi}
+\newtheorem{corollary}[definition]{\ifzpenglish Corollary\else 系\fi}
 \renewcommand{\proofname}{\ifzpenglish Proof\else 証明\fi}
-\renewcommand{\refname}{\ifzpenglish Reference\else 参考文献\fi}
+\renewcommand{\refname}{\ifzpenglish References\else 参考文献\fi}
 
 % ＊ TikZ-cd 用環境
 \newenvironment{cd}[1]{\begin{tikzcd}[ampersand replacement=\&, #1]}{\end{tikzcd}}
