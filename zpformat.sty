@@ -12,6 +12,11 @@
 % Times フォントを使うようにします。
 \usepackage[helvratio=.95,defaultsups]{newtxtext}
 \usepackage[nonewtxmathopt]{newtxmath}
+\AtBeginDocument{
+  \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}
+  \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}
+  \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<-> ssub * ptm/b/sl}{}
+}
 
 % ＊ タイトルの体裁の設定
 \if@titlepage
