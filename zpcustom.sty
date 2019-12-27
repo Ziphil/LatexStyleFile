@@ -15,6 +15,7 @@
 \usepackage{delarray}
 \usepackage{tikz-cd}
 \usepackage{BOONDOX-cal}
+\usepackage{cleveref}
 
 % ＊ 数式用括弧
 % 上下の高さに合わせた括弧を表示させられるようにします。
@@ -89,13 +90,33 @@
 \newcommand{\pname}[1]{\noindent\textsf{\textgt{#1}}\hspace{1zw}}
 
 % ＊ 定理環境
-\newtheorem{definition}{\ifzpenglish Definition\else 定義\fi}[section]
-\newtheorem{theorem}[definition]{\ifzpenglish Theorem\else 定理\fi}
-\newtheorem{proposition}[definition]{\ifzpenglish Proposition\else 命題\fi}
-\newtheorem{lemma}[definition]{\ifzpenglish Lemma\else 補題\fi}
-\newtheorem{corollary}[definition]{\ifzpenglish Corollary\else 系\fi}
-\renewcommand{\proofname}{\ifzpenglish Proof\else 証明\fi}
-\renewcommand{\refname}{\ifzpenglish References\else 参考文献\fi}
+\ifzpenglish
+  \newtheorem{definition}{Definition}[section]
+  \newtheorem{theorem}[definition]{Theorem}
+  \newtheorem{proposition}[definition]{Proposition}
+  \newtheorem{lemma}[definition]{Lemma}
+  \newtheorem{corollary}[definition]{Corollary}
+  \crefname{definition}{Definition}{Definitions}
+  \crefname{theorem}{Theorem}{Theorems}
+  \crefname{proposition}{Proposition}{Propositions}
+  \crefname{lemma}{Lemma}{Lemmata}
+  \crefname{corollary}{Corollary}{Corollaries}
+  \renewcommand{\proofname}{Proof}
+  \renewcommand{\refname}{References}
+\else
+  \newtheorem{definition}{定義}[section]
+  \newtheorem{theorem}[definition]{定理}
+  \newtheorem{proposition}[definition]{命題}
+  \newtheorem{lemma}[definition]{補題}
+  \newtheorem{corollary}[definition]{系}
+  \crefname{definition}{定義}{定義}
+  \crefname{theorem}{定理}{定理}
+  \crefname{proposition}{命題}{命題}
+  \crefname{lemma}{補題}{補題}
+  \crefname{corollary}{系}{系}
+  \renewcommand{\proofname}{証明}
+  \renewcommand{\refname}{参考文献}
+\fi
 
 % ＊ TikZ-cd 用環境
 \newenvironment{cd}[1]{\begin{tikzcd}[ampersand replacement=\&, #1]}{\end{tikzcd}}
