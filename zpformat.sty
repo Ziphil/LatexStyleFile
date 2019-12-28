@@ -147,6 +147,17 @@
 }
 \makeatother
 
+% ＊ 各種見出しの設定
+\ifzpenglish
+  \renewcommand{\refname}{References}
+  \renewcommand{\figurename}{Figure }
+  \renewcommand{\tablename}{Table }
+\else
+  \renewcommand{\refname}{参考文献}
+  \renewcommand{\figurename}{図}
+  \renewcommand{\tablename}{表}
+\fi
+
 % ＊ ヘッダーとフッターの設定
 \renewcommand{\headrulewidth}{0pt}
 \pagestyle{fancy}
