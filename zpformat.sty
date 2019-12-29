@@ -128,6 +128,21 @@
 \renewcommand{\@seccntformat}[1]{\csname the#1\endcsname.\quad}
 \def\numberline#1{\hb@xt@\@lnumwidth{#1.\hfil}\hspace{0pt}}
 
+% ＊ キャプションの体裁の設定
+% 図表番号の直後にドットを付けます。
+\makeatletter
+\long\def\@makecaption#1#2{{%
+  \small%
+  \advance\leftskip .0628\linewidth
+  \advance\rightskip .0628\linewidth
+  \vskip\abovecaptionskip
+  \sbox\@tempboxa{#1.\hskip1zw\relax #2}%
+  \ifdim \wd\@tempboxa <\hsize \centering \fi
+  #1.\hskip1zw\relax #2\par
+  \vskip\belowcaptionskip
+}}
+\makeatother
+
 % ＊ 証明環境の体裁の設定
 \newtheoremstyle{zptheorem}%
 {\topsep}{\topsep}{\normalfont}{}{\sffamily\gtfamily}{}{1zw}%
