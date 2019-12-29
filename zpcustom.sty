@@ -5,12 +5,24 @@
 \ProcessOptions*
 
 % ＊ パッケージの読み込み
+% newtxmath パッケージが読み込まれていない場合に限り、記号を追加するため amssymb パッケージなどを読み込みます。
+% それ以外の読み込まれるパッケージは以下の通りです。
+% ・ amsthm ･･･ 定理環境
+% ・ fancyhdr ･･･ ヘッダーとフッターの設定
+% ・ graphicx ･･･ グラフィックの描画
+% ・ color ･･･ 色付き文字の描画
 % ・ relsize ･･･ 相対フォントサイズ指定するコマンド (\smaller, \larger)
 % ・ delarray ･･･ 繁分数の括弧
 % ・ tikz-cd ･･･ 可換図式
 % ・ BOONDOX-cal ･･･ カリグラフィーフォントの変更
 % ・ bm ･･･ \bm コマンド
 % ・ cleveref ･･･ 名称付きの参照
+\@ifpackageloaded{newtxmath}{}{
+  \usepackage{amssymb}
+  \usepackage{amsmath}
+}
+\usepackage{amsthm}
+\usepackage{fancyhdr}
 \usepackage[dvipdfmx]{graphicx}
 \usepackage[dvipdfmx]{color}
 \usepackage{relsize}
@@ -19,6 +31,11 @@
 \usepackage{BOONDOX-cal}
 \usepackage{bm}
 \usepackage{cleveref}
+
+% ＊ 不測記号の追加
+% amssymb パッケージが提供しない記号を定義します。
+\providecommand{\coloneqq}{\mathrel{:=}}
+\providecommand{\eqqcolon}{\mathrel{=:}}
 
 % ＊ 数式用括弧
 % 上下の高さに合わせた括弧を表示させられるようにします。
