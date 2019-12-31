@@ -179,6 +179,8 @@
 \lhead{}\rhead{}\chead{}
 \lfoot{}\rfoot{}
 \cfoot{　\\[5mm] ---\ \ \thepage{}\ \ ---}
+\let\oldmaketitle\maketitle
+\renewcommand{\maketitle}{\oldmaketitle\thispagestyle{fancy}}
 
 % ＊ 数式番号の体裁の設定
 % 数式番号に節番号を付記し、囲む記号として角括弧を用いるようにします。
