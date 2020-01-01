@@ -1,7 +1,10 @@
 % ＊ オプションの用意
 \newif\ifzpenglish
+\newif\ifzplibertine
 \zpenglishfalse
+\zplibertinefalse
 \DeclareOption{english}{\zpenglishtrue}
+\DeclareOption{libertine}{\zplibertinetrue}
 \ProcessOptions*
 
 % ＊ パッケージの読み込み
@@ -9,14 +12,37 @@
 \usepackage{fancyhdr}
 
 % ＊ フォントの設定
-% Times フォントを使うようにします。
-\usepackage[helvratio=.95,defaultsups]{newtxtext}
-\usepackage[nonewtxmathopt]{newtxmath}
-\AtBeginDocument{
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}
-  \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<-> ssub * ptm/b/sl}{}
-}
+\ifzplibertine
+  \renewcommand{\ttdefault}{ntxtt}
+  \usepackage[T1]{fontenc}
+  \usepackage[tt=false,defaultfeatures={Variant=01}]{libertine}
+  \usepackage[scaled]{helvet}
+  \usepackage[libertine]{newtxmath}
+  \usepackage[deluxe]{otf}
+  \usepackage{pxufont}
+  \usepackage[sourcehan,unicode]{pxchfon}
+  \AtBeginDocument{%
+    \DeclareFontShape{OML}{nxlmi}{m}{it}{<-> \ntxmath@scaled nxlmi}{}
+    \DeclareFontShape{OML}{nxlmi}{b}{it}{<-> \ntxmath@scaled nxlbmi}{}
+    \DeclareSymbolFont{myoperators}{\tx@enc}{\rmdefault}{m}{it}
+    \SetSymbolFont{myoperators}{bold}{\tx@enc}{\rmdefault}{\bold@wt}{it}
+    \DeclareMathSymbol{g}{\mathalpha}{myoperators}{103}
+    \DeclareMathSymbol{v}{\mathalpha}{myoperators}{118}
+    \DeclareMathSymbol{w}{\mathalpha}{myoperators}{119}
+    \DeclareMathSymbol{y}{\mathalpha}{myoperators}{121}
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> LinLibertineT-tlf-t1}{}
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> LinLibertineTB-tlf-t1}{}
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<-> LinLibertineTB-tlf-t1}{}
+  }
+\else
+  \usepackage[helvratio=.95,defaultsups]{newtxtext}
+  \usepackage[nonewtxmathopt]{newtxmath}
+  \AtBeginDocument{
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{m}{sl}{<-> ptmro7t}{}
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{b}{sl}{<-> ptmbo7t}{}
+    \DeclareFontShape{\encodingdefault}{\rmdefault}{bx}{sl}{<-> ssub * ptm/b/sl}{}
+  }
+\fi
 
 % ＊ タイトルの体裁の設定
 \if@titlepage
