@@ -1,10 +1,13 @@
 % ＊ オプションの用意
 \newif\ifzpenglish
 \newif\ifzplibertine
+\newif\ifzpsectionnum
 \zpenglishfalse
 \zplibertinefalse
+\zpsectionnumfalse
 \DeclareOption{english}{\zpenglishtrue}
 \DeclareOption{libertine}{\zplibertinetrue}
+\DeclareOption{sectionnum}{\zpsectionnumtrue}
 \ProcessOptions*
 
 % ＊ パッケージの読み込み
@@ -209,8 +212,10 @@
 \renewcommand{\maketitle}{\oldmaketitle\thispagestyle{fancy}}
 
 % ＊ 数式番号の体裁の設定
-% 数式番号に節番号を付記し、囲む記号として角括弧を用いるようにします。
-\numberwithin{equation}{section}
+% 囲む記号として角括弧を用いるようにします。
+\ifzpsectionnum
+  \numberwithin{equation}{section}
+\fi
 \makeatletter%
 \renewcommand{\tagform@}[1]{\maketag@@@{\smaller[1]{}[\ignorespaces#1\unskip\@@italiccorr]}}%
 \makeatother%

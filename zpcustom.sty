@@ -1,7 +1,10 @@
 % ＊ オプションの用意
 \newif\ifzpenglish
+\newif\ifzpsectionnum
 \zpenglishfalse
+\zpsectionnumfalse
 \DeclareOption{english}{\zpenglishtrue}
+\DeclareOption{sectionnum}{\zpsectionnumtrue}
 \ProcessOptions*
 
 % ＊ パッケージの読み込み
@@ -109,7 +112,11 @@
 
 % ＊ 定理環境
 \ifzpenglish
-  \newtheorem{definition}{Definition}[section]
+  \ifzpsectionnum
+    \newtheorem{definition}{Definition}[section]
+  \else
+    \newtheorem{definition}{Definition}
+  \fi
   \newtheorem{theorem}[definition]{Theorem}
   \newtheorem{proposition}[definition]{Proposition}
   \newtheorem{lemma}[definition]{Lemma}
@@ -121,7 +128,11 @@
   \crefname{corollary}{Corollary}{Corollaries}
   \renewcommand{\proofname}{Proof}
 \else
-  \newtheorem{definition}{定義}[section]
+  \ifzpsectionnum
+    \newtheorem{definition}{定義}[section]
+  \else
+    \newtheorem{definition}{定義}
+  \fi
   \newtheorem{theorem}[definition]{定理}
   \newtheorem{proposition}[definition]{命題}
   \newtheorem{lemma}[definition]{補題}
