@@ -2,12 +2,15 @@
 \newif\ifzpenglish
 \newif\ifzplibertine
 \newif\ifzpsectionnum
+\newif\ifzpbigref
 \zpenglishfalse
 \zplibertinefalse
 \zpsectionnumfalse
+\zpbigreffalse
 \DeclareOption{english}{\zpenglishtrue}
 \DeclareOption{libertine}{\zplibertinetrue}
 \DeclareOption{sectionnum}{\zpsectionnumtrue}
+\DeclareOption{bigref}{\zpbigreftrue}
 \ProcessOptions*
 
 % ＊ パッケージの読み込み
@@ -194,10 +197,12 @@
 % ＊ 各種見出しの設定
 \ifzpenglish
   \renewcommand{\refname}{References}
+  \renewcommand{\abstractname}{Abstract}
   \renewcommand{\figurename}{Figure }
   \renewcommand{\tablename}{Table }
 \else
   \renewcommand{\refname}{参考文献}
+  \renewcommand{\abstractname}{概要}
   \renewcommand{\figurename}{図}
   \renewcommand{\tablename}{表}
 \fi
@@ -262,7 +267,11 @@
   \endlist
 }
 \def\@cite#1#2{%
-  \textsuperscript{[{#1\if@tempswa , #2\fi}]}%
+  \ifzpbigref%
+    [{#1\if@tempswa , #2\fi}]%
+  \else
+    \textsuperscript{[{#1\if@tempswa , #2\fi}]}%
+  \fi
 }
 \makeatother
 
